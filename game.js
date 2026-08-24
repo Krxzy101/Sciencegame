@@ -167,7 +167,7 @@ const masterQuestionBank = [
     }
 ];
 
-// 5 EXPANDED LEVELS WITH LARGE GAPS (2400px Wide)
+// 5 BALANCED LEVELS - 2 Papers Per Level & Grounded Exit Doors
 const levels = [
     // --- LEVEL 1 ---
     {
@@ -175,23 +175,18 @@ const levels = [
         platforms: [
             { x: 0, y: 370, width: 350, height: 30, type: "ground" },
             { x: 750, y: 370, width: 400, height: 30, type: "ground" },
-            { x: 1550, y: 370, width: 450, height: 30, type: "ground" },
+            { x: 1550, y: 370, width: 850, height: 30, type: "ground" },
 
             { x: 420, y: 300, width: 100, height: 18, type: "platform" },
             { x: 580, y: 230, width: 100, height: 18, type: "platform" },
-
             { x: 1220, y: 290, width: 100, height: 18, type: "platform" },
             { x: 1390, y: 220, width: 100, height: 18, type: "platform" },
 
-            { x: 2050, y: 300, width: 110, height: 18, type: "platform" },
-
-            { x: 2280, y: 300, width: 60, height: 70, type: "exit" }
+            { x: 2300, y: 300, width: 60, height: 70, type: "exit" }
         ],
         papers: [
-            { x: 450, y: 260, width: 24, height: 24, asked: false, question: null },
-            { x: 610, y: 190, width: 24, height: 24, asked: false, question: null },
-            { x: 1250, y: 250, width: 24, height: 24, asked: false, question: null },
-            { x: 1420, y: 180, width: 24, height: 24, asked: false, question: null }
+            { x: 580, y: 190, width: 24, height: 24, asked: false, question: null },
+            { x: 1390, y: 180, width: 24, height: 24, asked: false, question: null }
         ]
     },
 
@@ -201,25 +196,19 @@ const levels = [
         platforms: [
             { x: 0, y: 370, width: 300, height: 30, type: "ground" },
             { x: 800, y: 370, width: 350, height: 30, type: "ground" },
-            { x: 1650, y: 370, width: 400, height: 30, type: "ground" },
+            { x: 1650, y: 370, width: 750, height: 30, type: "ground" },
 
             { x: 360, y: 310, width: 90, height: 18, type: "platform" },
             { x: 500, y: 240, width: 90, height: 18, type: "platform" },
             { x: 650, y: 180, width: 90, height: 18, type: "platform" },
-
             { x: 1220, y: 300, width: 90, height: 18, type: "platform" },
             { x: 1360, y: 220, width: 90, height: 18, type: "platform" },
-            { x: 1500, y: 160, width: 90, height: 18, type: "platform" },
 
-            { x: 2120, y: 290, width: 90, height: 18, type: "platform" },
-
-            { x: 2280, y: 300, width: 60, height: 70, type: "exit" }
+            { x: 2300, y: 300, width: 60, height: 70, type: "exit" }
         ],
         papers: [
-            { x: 530, y: 200, width: 24, height: 24, asked: false, question: null },
-            { x: 680, y: 140, width: 24, height: 24, asked: false, question: null },
-            { x: 1380, y: 180, width: 24, height: 24, asked: false, question: null },
-            { x: 1530, y: 120, width: 24, height: 24, asked: false, question: null }
+            { x: 650, y: 140, width: 24, height: 24, asked: false, question: null },
+            { x: 1360, y: 180, width: 24, height: 24, asked: false, question: null }
         ]
     },
 
@@ -229,27 +218,19 @@ const levels = [
         platforms: [
             { x: 0, y: 370, width: 250, height: 30, type: "ground" },
             { x: 900, y: 370, width: 300, height: 30, type: "ground" },
-            { x: 1750, y: 370, width: 350, height: 30, type: "ground" },
+            { x: 1750, y: 370, width: 650, height: 30, type: "ground" },
 
             { x: 310, y: 310, width: 85, height: 18, type: "platform" },
             { x: 440, y: 240, width: 85, height: 18, type: "platform" },
             { x: 580, y: 180, width: 85, height: 18, type: "platform" },
-            { x: 730, y: 250, width: 85, height: 18, type: "platform" },
-
             { x: 1260, y: 310, width: 85, height: 18, type: "platform" },
             { x: 1390, y: 230, width: 85, height: 18, type: "platform" },
-            { x: 1520, y: 170, width: 85, height: 18, type: "platform" },
-            { x: 1640, y: 240, width: 85, height: 18, type: "platform" },
 
-            { x: 2150, y: 300, width: 90, height: 18, type: "platform" },
-
-            { x: 2280, y: 300, width: 60, height: 70, type: "exit" }
+            { x: 2300, y: 300, width: 60, height: 70, type: "exit" }
         ],
         papers: [
-            { x: 460, y: 200, width: 24, height: 24, asked: false, question: null },
-            { x: 600, y: 140, width: 24, height: 24, asked: false, question: null },
-            { x: 1410, y: 190, width: 24, height: 24, asked: false, question: null },
-            { x: 1540, y: 130, width: 24, height: 24, asked: false, question: null }
+            { x: 580, y: 140, width: 24, height: 24, asked: false, question: null },
+            { x: 1390, y: 190, width: 24, height: 24, asked: false, question: null }
         ]
     },
 
@@ -259,28 +240,19 @@ const levels = [
         platforms: [
             { x: 0, y: 370, width: 200, height: 30, type: "ground" },
             { x: 1000, y: 370, width: 250, height: 30, type: "ground" },
-            { x: 1850, y: 370, width: 300, height: 30, type: "ground" },
+            { x: 1850, y: 370, width: 550, height: 30, type: "ground" },
 
             { x: 260, y: 300, width: 80, height: 18, type: "platform" },
             { x: 390, y: 230, width: 80, height: 18, type: "platform" },
             { x: 530, y: 170, width: 80, height: 18, type: "platform" },
-            { x: 670, y: 220, width: 80, height: 18, type: "platform" },
-            { x: 820, y: 280, width: 80, height: 18, type: "platform" },
-
             { x: 1320, y: 300, width: 80, height: 18, type: "platform" },
             { x: 1450, y: 220, width: 80, height: 18, type: "platform" },
-            { x: 1590, y: 160, width: 80, height: 18, type: "platform" },
-            { x: 1720, y: 240, width: 80, height: 18, type: "platform" },
 
-            { x: 2200, y: 290, width: 80, height: 18, type: "platform" },
-
-            { x: 2280, y: 300, width: 60, height: 70, type: "exit" }
+            { x: 2300, y: 300, width: 60, height: 70, type: "exit" }
         ],
         papers: [
-            { x: 410, y: 190, width: 24, height: 24, asked: false, question: null },
-            { x: 550, y: 130, width: 24, height: 24, asked: false, question: null },
-            { x: 1470, y: 180, width: 24, height: 24, asked: false, question: null },
-            { x: 1610, y: 120, width: 24, height: 24, asked: false, question: null }
+            { x: 530, y: 130, width: 24, height: 24, asked: false, question: null },
+            { x: 1450, y: 180, width: 24, height: 24, asked: false, question: null }
         ]
     },
 
@@ -290,28 +262,20 @@ const levels = [
         platforms: [
             { x: 0, y: 370, width: 180, height: 30, type: "ground" },
             { x: 1100, y: 370, width: 200, height: 30, type: "ground" },
+            { x: 2100, y: 370, width: 300, height: 30, type: "ground" },
 
             { x: 230, y: 300, width: 75, height: 18, type: "platform" },
             { x: 360, y: 230, width: 75, height: 18, type: "platform" },
             { x: 500, y: 160, width: 75, height: 18, type: "platform" },
-            { x: 650, y: 160, width: 75, height: 18, type: "platform" },
-            { x: 800, y: 220, width: 75, height: 18, type: "platform" },
-            { x: 950, y: 290, width: 75, height: 18, type: "platform" },
-
             { x: 1370, y: 300, width: 75, height: 18, type: "platform" },
             { x: 1500, y: 220, width: 75, height: 18, type: "platform" },
             { x: 1640, y: 160, width: 75, height: 18, type: "platform" },
-            { x: 1790, y: 160, width: 75, height: 18, type: "platform" },
-            { x: 1940, y: 220, width: 75, height: 18, type: "platform" },
-            { x: 2100, y: 290, width: 75, height: 18, type: "platform" },
 
-            { x: 2280, y: 300, width: 60, height: 70, type: "exit" }
+            { x: 2300, y: 300, width: 60, height: 70, type: "exit" }
         ],
         papers: [
-            { x: 520, y: 120, width: 24, height: 24, asked: false, question: null },
-            { x: 670, y: 120, width: 24, height: 24, asked: false, question: null },
-            { x: 1660, y: 120, width: 24, height: 24, asked: false, question: null },
-            { x: 1810, y: 120, width: 24, height: 24, asked: false, question: null }
+            { x: 500, y: 120, width: 24, height: 24, asked: false, question: null },
+            { x: 1640, y: 120, width: 24, height: 24, asked: false, question: null }
         ]
     }
 ];
@@ -411,28 +375,39 @@ function update() {
     player.grounded = false;
     let currentPlatforms = levels[currentLevel].platforms;
 
-    // Platform & Exit Collisions
+    // 1. Solid Platform Collisions (Excludes Exit Door)
     currentPlatforms.forEach(p => {
+        if (p.type === "exit") return;
+
         if (
             player.x < p.x + p.width &&
             player.x + player.width > p.x &&
             player.y + player.height <= p.y + player.dy + 5 &&
             player.y + player.height + player.dy >= p.y
         ) {
-            if (p.type === "exit") {
-                if (isLevelComplete()) {
-                    loadLevel(currentLevel + 1);
-                } else {
-                    player.x -= player.dx;
-                }
-                return;
-            }
-
             player.grounded = true;
             player.dy = 0;
             player.y = p.y - player.height;
         }
     });
+
+    // 2. Dedicated Exit Door Wall Collision Logic
+    let exitDoor = currentPlatforms.find(p => p.type === "exit");
+    if (
+        exitDoor &&
+        player.x < exitDoor.x + exitDoor.width &&
+        player.x + player.width > exitDoor.x &&
+        player.y < exitDoor.y + exitDoor.height &&
+        player.y + player.height > exitDoor.y
+    ) {
+        if (isLevelComplete()) {
+            loadLevel(currentLevel + 1);
+        } else {
+            // Act like a solid wall
+            if (player.dx > 0) player.x = exitDoor.x - player.width;
+            if (player.dx < 0) player.x = exitDoor.x + exitDoor.width;
+        }
+    }
 
     // Paper Item Collisions
     let currentPapers = levels[currentLevel].papers;
