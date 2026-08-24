@@ -23,6 +23,7 @@ const CONFIG = {
 };
 
 let game;
+let gameStarted = false;
 
 // Wait for Phaser to load before initializing
 window.addEventListener('load', () => {
@@ -134,6 +135,95 @@ function preload() {
    4️⃣  CREATE
    --------------------------------------------------------- */
 function create() {
+  // Show start screen if game hasn't started
+  if (!gameStarted) {
+    showStartScreen.call(this);
+    return;
+  }
+
+  initializeGame.call(this);
+}
+
+/* ---------------------------------------------------------
+   START SCREEN
+   --------------------------------------------------------- */
+function showStartScreen() {
+  // Create semi-transparent overlay
+  const overlay = this.add.rectangle(400, 300, 800, 600, 0x000000, 0.95).setDepth(200);
+
+  // Title panel background
+  const panel = this.add.rectangle(400, 300, 650, 450, 0x2c3e50).setDepth(201);
+  panel.setStrokeStyle(4, 0xffff00);
+
+  // Title
+  this.add.text(400, 120, 'Chemistry Quiz', {
+    fontSize: '48px',
+    fill: '#ffff00',
+    fontStyle: 'bold',
+    align: 'center'
+  }).setOrigin(0.5).setDepth(202);
+
+  this.add.text(400, 180, 'Platformer Edition', {
+    fontSize: '28px',
+    fill: '#aaa',
+    align: 'center'
+  }).setOrigin(0.5).setDepth(202);
+
+  // Instructions
+  this.add.text(400, 260, 'Jump across platforms and answer chemistry questions!', {
+    fontSize: '14px',
+    fill: '#fff',
+    align: 'center',
+    wordWrap: { width: 600 }
+  }).setOrigin(0.5).setDepth(202);
+
+  this.add.text(400, 300, '→ Arrow Keys: Move | Space: Jump | Reach ? to answer', {
+    fontSize: '12px',
+    fill: '#aaa',
+    align: 'center',
+    wordWrap: { width: 600 }
+  }).setOrigin(0.5).setDepth(202);
+
+  // Play Button
+  const playButton = this.add.rectangle(400, 370, 200, 60, 0x27ae60).setDepth(202);
+  playButton.setInteractive();
+  playButton.setStrokeStyle(3, 0xffffff);
+
+  this.add.text(400, 370, 'Play', {
+    fontSize: '28px',
+    fill: '#fff',
+    fontStyle: 'bold'
+  }).setOrigin(0.5).setDepth(203);
+
+  playButton.on('pointerover', () => {
+    playButton.setFillStyle(0x229954);
+    playButton.setStrokeStyle(3, 0xffff00);
+  });
+
+  playButton.on('pointerout', () => {
+    playButton.setFillStyle(0x27ae60);
+    playButton.setStrokeStyle(3, 0xffffff);
+  });
+
+  playButton.on('pointerdown', () => {
+    gameStarted = true;
+    overlay.destroy();
+    panel.destroy();
+    initializeGame.call(this);
+  });
+}
+
+/* ---------------------------------------------------------
+   INITIALIZE GAME
+   --------------------------------------------------------- */
+function initializeGame() {
+  // Reset game state for replays
+  score = 0;
+  questionsAnswered = 0;
+  answeredQuestions.clear();
+  currentQuiz = null;
+  canMove = true;
+
   /* -------- Create Player (Green Square) -------- */
   player = this.add.rectangle(100, 400, 24, 32, 0x00ff00);
   this.physics.add.existing(player);
@@ -277,11 +367,14 @@ function showQuiz(questionIndex, zone) {
   const startY = 260;
   const buttonSpacing = 60;
 
+  const buttonRefs = []; // Store button references for cleanup
+
   question.answers.forEach((answer, index) => {
     const buttonY = startY + index * buttonSpacing;
     const button = this.add.rectangle(400, buttonY, buttonWidth, buttonHeight, 0x3498db).setDepth(202);
     button.setInteractive();
     button.setStrokeStyle(2, 0xffffff);
+    buttonRefs.push(button);
 
     const answerText = this.add.text(400, buttonY, `${String.fromCharCode(65 + index)}) ${answer}`, {
       fontSize: '15px',
@@ -289,6 +382,7 @@ function showQuiz(questionIndex, zone) {
       align: 'center',
       wordWrap: { width: 530 }
     }).setOrigin(0.5).setDepth(203);
+    buttonRefs.push(answerText);
 
     button.on('pointerover', () => {
       button.setFillStyle(0x2980b9);
@@ -301,7 +395,7 @@ function showQuiz(questionIndex, zone) {
     });
 
     button.on('pointerdown', () => {
-      handleAnswer.call(this, index, question.correct, overlay, panel, questionText, button, buttonSpacing, startY, question.answers.length);
+      handleAnswer.call(this, index, question.correct, overlay, panel, questionText, button, buttonSpacing, startY, question.answers.length, buttonRefs);
     });
   });
 }
@@ -309,7 +403,7 @@ function showQuiz(questionIndex, zone) {
 /* ---------------------------------------------------------
    6️⃣  HANDLE QUIZ ANSWER
    --------------------------------------------------------- */
-function handleAnswer(selectedIndex, correctIndex, overlay, panel, questionText, button, buttonSpacing, startY, answerCount) {
+function handleAnswer(selectedIndex, correctIndex, overlay, panel, questionText, button, buttonSpacing, startY, answerCount, buttonRefs) {
   const isCorrect = selectedIndex === correctIndex;
 
   if (isCorrect) {
@@ -349,6 +443,14 @@ function handleAnswer(selectedIndex, correctIndex, overlay, panel, questionText,
     overlay.destroy();
     panel.destroy();
     questionText.destroy();
+    
+    // Clean up button references
+    buttonRefs.forEach(btn => {
+      if (btn && btn.destroy) {
+        btn.destroy();
+      }
+    });
+    
     canMove = true;
     currentQuiz = null;
 
@@ -419,6 +521,7 @@ function showGameEnd() {
   });
 
   restartButton.on('pointerdown', () => {
+    gameStarted = false;
     this.scene.restart();
   });
 }
@@ -427,8 +530,8 @@ function showGameEnd() {
    8️⃣  UPDATE (Input Handling)
    --------------------------------------------------------- */
 function update() {
-  if (!canMove) {
-    player.setVelocityX(0);
+  if (!canMove || !player) {
+    if (player) player.setVelocityX(0);
     return;
   }
 
