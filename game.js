@@ -330,36 +330,64 @@ function initializeGame() {
 }
 
 /* ---------------------------------------------------------
-   5️⃣  SHOW QUIZ MODAL
+   5️⃣  SHOW QUIZ MODAL (FIXED)
    --------------------------------------------------------- */
 function showQuiz(questionIndex, zone) {
+  console.log('showQuiz called', { questionIndex, zoneQuizId: zone ? zone.quizId : undefined });
   if (questionIndex >= QUESTIONS.length || currentQuiz !== null) return;
+
+  const question = QUESTIONS[questionIndex];
+  if (!question || !Array.isArray(question.answers)) {
+    console.warn('Invalid question data for index:', questionIndex, question);
+    // fallback simple modal
+    canMove = false;
+    currentQuiz = questionIndex;
+    const overlay = this.add.rectangle(400, 300, 800, 600, 0x000000, 0.85).setDepth(200);
+    const panel = this.add.rectangle(400, 300, 500, 160, 0x2c3e50).setDepth(201).setStrokeStyle(4, 0xffff00);
+    const msg = this.add.text(400, 300, 'Question data missing', { fontSize: '18px', fill: '#fff' }).setOrigin(0.5).setDepth(202);
+    const ok = this.add.rectangle(400, 360, 120, 36, 0x3498db).setDepth(203).setInteractive();
+    const okText = this.add.text(400, 360, 'OK', { fontSize: '14px', fill: '#fff' }).setOrigin(0.5).setDepth(204);
+    ok.on('pointerdown', () => {
+      overlay.destroy(); panel.destroy(); msg.destroy(); ok.destroy(); okText.destroy();
+      canMove = true; currentQuiz = null;
+    });
+    return;
+  }
 
   canMove = false;
   currentQuiz = questionIndex;
-  const question = QUESTIONS[questionIndex];
 
-  // Create semi-transparent overlay
+  // Keep references to everything we create so we can clean up reliably
+  const elements = [];
+  const buttonRefs = [];
+
+  // Overlay and panel
   const overlay = this.add.rectangle(400, 300, 800, 600, 0x000000, 0.85).setDepth(200);
-
-  // Quiz panel background
   const panel = this.add.rectangle(400, 300, 650, 400, 0x2c3e50).setDepth(201);
   panel.setStrokeStyle(4, 0xffff00);
+  elements.push(overlay, panel);
 
-  // Question number
-  this.add.text(400, 120, `Question ${questionIndex + 1}/${QUESTIONS.length}`, {
+  // Header
+  const header = this.add.text(400, 120, 'Quiz Time!', {
+    fontSize: '36px',
+    fill: '#ffff00',
+    fontStyle: 'bold'
+  }).setOrigin(0.5).setDepth(202);
+  elements.push(header);
+
+  // Question number & text
+  const qnum = this.add.text(400, 150, `Question ${questionIndex + 1}/${QUESTIONS.length}`, {
     fontSize: '16px',
     fill: '#ffff00',
     align: 'center'
   }).setOrigin(0.5).setDepth(202);
-
-  // Question text
-  const questionText = this.add.text(400, 170, question.question, {
+  const questionText = this.add.text(400, 180, question.question, {
     fontSize: '18px',
     fill: '#fff',
     align: 'center',
     wordWrap: { width: 600 }
   }).setOrigin(0.5).setDepth(202);
+  elements.push(qnum, questionText);
 
   // Answer buttons
   const buttonWidth = 580;
@@ -367,116 +395,84 @@ function showQuiz(questionIndex, zone) {
   const startY = 260;
   const buttonSpacing = 60;
 
-  const buttonRefs = []; // Store button references for cleanup
-
   question.answers.forEach((answer, index) => {
     const buttonY = startY + index * buttonSpacing;
-    const button = this.add.rectangle(400, buttonY, buttonWidth, buttonHeight, 0x3498db).setDepth(202);
-    button.setInteractive();
+    const button = this.add.rectangle(400, buttonY, buttonWidth, buttonHeight, 0x3498db).setDepth(202).setInteractive();
     button.setStrokeStyle(2, 0xffffff);
-    buttonRefs.push(button);
-
     const answerText = this.add.text(400, buttonY, `${String.fromCharCode(65 + index)}) ${answer}`, {
       fontSize: '15px',
       fill: '#fff',
       align: 'center',
       wordWrap: { width: 530 }
     }).setOrigin(0.5).setDepth(203);
-    buttonRefs.push(answerText);
 
-    button.on('pointerover', () => {
-      button.setFillStyle(0x2980b9);
-      button.setStrokeStyle(3, 0xffff00);
-    });
-
-    button.on('pointerout', () => {
-      button.setFillStyle(0x3498db);
-      button.setStrokeStyle(2, 0xffffff);
-    });
+    button.on('pointerover', () => { button.setFillStyle(0x2980b9); button.setStrokeStyle(3, 0xffff00); });
+    button.on('pointerout',  () => { button.setFillStyle(0x3498db); button.setStrokeStyle(2, 0xffffff); });
 
     button.on('pointerdown', () => {
-      handleAnswer.call(this, index, question.correct, overlay, panel, questionText, button, buttonSpacing, startY, question.answers.length, buttonRefs);
+      handleAnswer.call(this, index, question.correct, elements, button, buttonSpacing, startY, question.answers.length, buttonRefs);
     });
+
+    buttonRefs.push(button, answerText);
+    elements.push(button, answerText);
   });
 
-  // Add a Cancel button so player can close the quiz modal without answering
+  // Cancel button (also push to refs & elements)
   const cancelY = startY + question.answers.length * buttonSpacing + 20;
-  const cancelBtn = this.add.rectangle(400, cancelY, 160, 36, 0x7f8c8d).setDepth(204);
-  cancelBtn.setInteractive();
+  const cancelBtn = this.add.rectangle(400, cancelY, 160, 36, 0x7f8c8d).setDepth(204).setInteractive();
   cancelBtn.setStrokeStyle(2, 0xffffff);
+  const cancelText = this.add.text(400, cancelY, 'Cancel', { fontSize: '14px', fill: '#fff', fontStyle: 'bold' }).setOrigin(0.5).setDepth(205);
 
-  const cancelText = this.add.text(400, cancelY, 'Cancel', {
-    fontSize: '14px',
-    fill: '#fff',
-    fontStyle: 'bold'
-  }).setOrigin(0.5).setDepth(205);
-
-  // Include cancel elements in buttonRefs so handleAnswer cleanup removes them too
-  buttonRefs.push(cancelBtn);
-  buttonRefs.push(cancelText);
-
-  cancelBtn.on('pointerover', () => {
-    cancelBtn.setFillStyle(0x95a5a6);
-    cancelBtn.setStrokeStyle(2, 0xffff00);
-  });
-
-  cancelBtn.on('pointerout', () => {
-    cancelBtn.setFillStyle(0x7f8c8d);
-    cancelBtn.setStrokeStyle(2, 0xffffff);
-  });
+  cancelBtn.on('pointerover', () => { cancelBtn.setFillStyle(0x95a5a6); cancelBtn.setStrokeStyle(2, 0xffff00); });
+  cancelBtn.on('pointerout',  () => { cancelBtn.setFillStyle(0x7f8c8d); cancelBtn.setStrokeStyle(2, 0xffffff); });
 
   cancelBtn.on('pointerdown', () => {
-    // Clean up everything created for the quiz modal
-    overlay.destroy();
-    panel.destroy();
-    questionText.destroy();
-
-    // Clean up button references (answers + cancel elements)
-    buttonRefs.forEach(btn => {
-      if (btn && btn.destroy) {
-        btn.destroy();
-      }
-    });
-
-    // Restore control but do NOT mark the question answered
+    // destroy everything we created
+    elements.forEach(e => { if (e && e.destroy) e.destroy(); });
+    buttonRefs.forEach(b => { if (b && b.destroy) b.destroy(); });
     canMove = true;
     currentQuiz = null;
   });
+
+  elements.push(cancelBtn, cancelText);
 }
 
 /* ---------------------------------------------------------
-   6️⃣  HANDLE QUIZ ANSWER
+   6️⃣  HANDLE QUIZ ANSWER (FIXED)
    --------------------------------------------------------- */
-function handleAnswer(selectedIndex, correctIndex, overlay, panel, questionText, button, buttonSpacing, startY, answerCount, buttonRefs) {
+function handleAnswer(selectedIndex, correctIndex, elements, button, buttonSpacing, startY, answerCount, buttonRefs) {
   const isCorrect = selectedIndex === correctIndex;
 
   if (isCorrect) {
     score++;
     scoreText.setText(`Score: ${score}/${QUESTIONS.length}`);
     button.setFillStyle(0x27ae60); // Green for correct
-    this.add.text(button.x, button.y, '✓ Correct!', {
+    const resultText = this.add.text(button.x, button.y, '✓ Correct!', {
       fontSize: '16px',
       fill: '#fff',
       fontStyle: 'bold'
     }).setOrigin(0.5).setDepth(203);
+    elements.push(resultText);
   } else {
     button.setFillStyle(0xe74c3c); // Red for incorrect
-    this.add.text(button.x, button.y, '✗ Wrong!', {
+    const wrongText = this.add.text(button.x, button.y, '✗ Wrong!', {
       fontSize: '16px',
       fill: '#fff',
       fontStyle: 'bold'
     }).setOrigin(0.5).setDepth(203);
+    elements.push(wrongText);
 
     // Show correct answer
     const correctButtonY = startY + correctIndex * buttonSpacing;
     const correctButton = this.add.rectangle(400, correctButtonY, 580, 45, 0x27ae60).setDepth(202);
     correctButton.setStrokeStyle(2, 0xffffff);
-    this.add.text(400, correctButtonY, `${String.fromCharCode(65 + correctIndex)}) Correct Answer`, {
+    const correctText = this.add.text(400, correctButtonY, `${String.fromCharCode(65 + correctIndex)}) Correct Answer`, {
       fontSize: '15px',
       fill: '#fff',
       align: 'center',
       fontStyle: 'bold'
     }).setOrigin(0.5).setDepth(203);
+    elements.push(correctButton, correctText);
   }
 
   questionsAnswered++;
@@ -484,17 +480,11 @@ function handleAnswer(selectedIndex, correctIndex, overlay, panel, questionText,
 
   // Close quiz after 2 seconds
   this.time.delayedCall(2000, () => {
-    overlay.destroy();
-    panel.destroy();
-    questionText.destroy();
-    
-    // Clean up button references
-    buttonRefs.forEach(btn => {
-      if (btn && btn.destroy) {
-        btn.destroy();
-      }
-    });
-    
+    // destroy all elements created for modal
+    elements.forEach(e => { if (e && e.destroy) e.destroy(); });
+    // destroy button refs (answers + cancel) too
+    buttonRefs.forEach(b => { if (b && b.destroy) b.destroy(); });
+
     canMove = true;
     currentQuiz = null;
 
