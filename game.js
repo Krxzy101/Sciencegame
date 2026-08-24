@@ -398,6 +398,50 @@ function showQuiz(questionIndex, zone) {
       handleAnswer.call(this, index, question.correct, overlay, panel, questionText, button, buttonSpacing, startY, question.answers.length, buttonRefs);
     });
   });
+
+  // Add a Cancel button so player can close the quiz modal without answering
+  const cancelY = startY + question.answers.length * buttonSpacing + 20;
+  const cancelBtn = this.add.rectangle(400, cancelY, 160, 36, 0x7f8c8d).setDepth(204);
+  cancelBtn.setInteractive();
+  cancelBtn.setStrokeStyle(2, 0xffffff);
+
+  const cancelText = this.add.text(400, cancelY, 'Cancel', {
+    fontSize: '14px',
+    fill: '#fff',
+    fontStyle: 'bold'
+  }).setOrigin(0.5).setDepth(205);
+
+  // Include cancel elements in buttonRefs so handleAnswer cleanup removes them too
+  buttonRefs.push(cancelBtn);
+  buttonRefs.push(cancelText);
+
+  cancelBtn.on('pointerover', () => {
+    cancelBtn.setFillStyle(0x95a5a6);
+    cancelBtn.setStrokeStyle(2, 0xffff00);
+  });
+
+  cancelBtn.on('pointerout', () => {
+    cancelBtn.setFillStyle(0x7f8c8d);
+    cancelBtn.setStrokeStyle(2, 0xffffff);
+  });
+
+  cancelBtn.on('pointerdown', () => {
+    // Clean up everything created for the quiz modal
+    overlay.destroy();
+    panel.destroy();
+    questionText.destroy();
+
+    // Clean up button references (answers + cancel elements)
+    buttonRefs.forEach(btn => {
+      if (btn && btn.destroy) {
+        btn.destroy();
+      }
+    });
+
+    // Restore control but do NOT mark the question answered
+    canMove = true;
+    currentQuiz = null;
+  });
 }
 
 /* ---------------------------------------------------------
