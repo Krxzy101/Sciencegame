@@ -22,7 +22,16 @@ const CONFIG = {
   }
 };
 
-const game = new Phaser.Game(CONFIG);
+let game;
+
+// Wait for Phaser to load before initializing
+window.addEventListener('load', () => {
+  if (typeof Phaser !== 'undefined') {
+    game = new Phaser.Game(CONFIG);
+  } else {
+    console.error('Phaser failed to load');
+  }
+});
 
 /* ---------------------------------------------------------
    1️⃣  QUESTIONS FROM CHEMISTRY COURSE
