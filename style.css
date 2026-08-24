@@ -1,3 +1,9 @@
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
 body {
     background-color: #111;
     color: #fff;
@@ -6,16 +12,27 @@ body {
     justify-content: center;
     align-items: center;
     min-height: 100vh;
-    margin: 0;
 }
 
 #game-container {
     text-align: center;
 }
 
+h1 {
+    color: #f1c40f;
+    margin-bottom: 4px;
+}
+
+h2 {
+    font-size: 1.1rem;
+    color: #aaa;
+    margin-bottom: 16px;
+}
+
 canvas {
     border: 2px solid #f1c40f;
     background-color: #000;
+    box-shadow: 0 0 15px rgba(241, 196, 15, 0.2);
 }
 
 /* Modal Styling */
@@ -26,55 +43,73 @@ canvas {
     left: 0;
     width: 100%;
     height: 100%;
-    background-color: rgba(0, 0, 0, 0.7);
+    background-color: rgba(0, 0, 0, 0.85);
     justify-content: center;
     align-items: center;
-    z-index: 100;
+    z-index: 1000;
 }
 
 .modal-content {
-    background-color: #2c3e50;
+    background-color: #1e272e;
     border: 2px solid #f1c40f;
     border-radius: 8px;
-    padding: 20px;
+    padding: 24px;
     text-align: center;
-    min-width: 300px;
+    width: 90%;
+    max-width: 420px;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.8);
 }
 
 .modal-content h2 {
     color: #f1c40f;
-    margin-top: 0;
+    font-size: 1.5rem;
+    margin-bottom: 12px;
+}
+
+#question-text {
+    font-size: 1.1rem;
+    margin-bottom: 20px;
+    line-height: 1.4;
+    color: #dcdde1;
+}
+
+#options-container {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-bottom: 15px;
 }
 
 .quiz-opt-btn {
-    display: block;
-    width: 100%;
-    margin: 8px 0;
-    padding: 8px;
-    background-color: #34495e;
-    color: white;
+    padding: 10px 14px;
+    background-color: #2f3640;
+    color: #f5f6fa;
     border: 1px solid #f1c40f;
-    cursor: pointer;
     border-radius: 4px;
+    font-size: 1rem;
+    font-family: inherit;
+    cursor: pointer;
+    transition: all 0.2s ease;
 }
 
 .quiz-opt-btn:hover {
     background-color: #f1c40f;
-    color: black;
+    color: #111;
+    font-weight: bold;
 }
 
 #cancel-btn {
-    margin-top: 12px;
-    padding: 6px 16px;
+    padding: 8px 18px;
     background-color: transparent;
-    color: #ccc;
-    border: 1px solid #ccc;
-    cursor: pointer;
+    color: #e74c3c;
+    border: 1px solid #e74c3c;
     border-radius: 4px;
+    font-family: inherit;
+    cursor: pointer;
+    transition: all 0.2s ease;
 }
 
 #cancel-btn:hover {
     background-color: #e74c3c;
-    color: white;
-    border-color: #e74c3c;
+    color: #fff;
 }
