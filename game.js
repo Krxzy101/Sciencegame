@@ -105,7 +105,7 @@ const masterQuestionBank = [
     }
 ];
 
-// 5 BALANCED LEVELS - 2400px Wide, 2 Papers Per Level, Grounded Exit Doors
+// 5 BALANCED LEVELS - Bridges wide gaps with reachable stepping platforms
 const levels = [
     // --- LEVEL 1 ---
     {
@@ -115,10 +115,13 @@ const levels = [
             { x: 750, y: 370, width: 400, height: 30, type: "ground" },
             { x: 1550, y: 370, width: 850, height: 30, type: "ground" },
 
-            { x: 420, y: 300, width: 100, height: 18, type: "platform" },
-            { x: 580, y: 230, width: 100, height: 18, type: "platform" },
-            { x: 1220, y: 290, width: 100, height: 18, type: "platform" },
-            { x: 1390, y: 220, width: 100, height: 18, type: "platform" },
+            // Bridge Gap 1 (350 to 750)
+            { x: 420, y: 300, width: 90, height: 18, type: "platform" },
+            { x: 580, y: 230, width: 90, height: 18, type: "platform" },
+
+            // Bridge Gap 2 (1150 to 1550)
+            { x: 1220, y: 290, width: 90, height: 18, type: "platform" },
+            { x: 1390, y: 220, width: 90, height: 18, type: "platform" },
 
             { x: 2300, y: 300, width: 60, height: 70, type: "exit" }
         ],
@@ -136,17 +139,21 @@ const levels = [
             { x: 800, y: 370, width: 350, height: 30, type: "ground" },
             { x: 1650, y: 370, width: 750, height: 30, type: "ground" },
 
-            { x: 360, y: 310, width: 90, height: 18, type: "platform" },
-            { x: 500, y: 240, width: 90, height: 18, type: "platform" },
-            { x: 650, y: 180, width: 90, height: 18, type: "platform" },
-            { x: 1220, y: 300, width: 90, height: 18, type: "platform" },
-            { x: 1360, y: 220, width: 90, height: 18, type: "platform" },
+            // Bridge Gap 1 (300 to 800)
+            { x: 380, y: 310, width: 90, height: 18, type: "platform" },
+            { x: 520, y: 240, width: 90, height: 18, type: "platform" },
+            { x: 660, y: 300, width: 90, height: 18, type: "platform" },
+
+            // Bridge Gap 2 (1150 to 1650)
+            { x: 1250, y: 300, width: 90, height: 18, type: "platform" },
+            { x: 1390, y: 230, width: 90, height: 18, type: "platform" },
+            { x: 1520, y: 300, width: 90, height: 18, type: "platform" },
 
             { x: 2300, y: 300, width: 60, height: 70, type: "exit" }
         ],
         papers: [
-            { x: 650, y: 140, width: 24, height: 24, asked: false, question: null },
-            { x: 1360, y: 180, width: 24, height: 24, asked: false, question: null }
+            { x: 520, y: 200, width: 24, height: 24, asked: false, question: null },
+            { x: 1390, y: 190, width: 24, height: 24, asked: false, question: null }
         ]
     },
 
@@ -158,17 +165,22 @@ const levels = [
             { x: 900, y: 370, width: 300, height: 30, type: "ground" },
             { x: 1750, y: 370, width: 650, height: 30, type: "ground" },
 
-            { x: 310, y: 310, width: 85, height: 18, type: "platform" },
-            { x: 440, y: 240, width: 85, height: 18, type: "platform" },
-            { x: 580, y: 180, width: 85, height: 18, type: "platform" },
-            { x: 1260, y: 310, width: 85, height: 18, type: "platform" },
-            { x: 1390, y: 230, width: 85, height: 18, type: "platform" },
+            // Bridge Gap 1 (250 to 900)
+            { x: 320, y: 310, width: 85, height: 18, type: "platform" },
+            { x: 450, y: 240, width: 85, height: 18, type: "platform" },
+            { x: 600, y: 240, width: 85, height: 18, type: "platform" },
+            { x: 750, y: 310, width: 85, height: 18, type: "platform" },
+
+            // Bridge Gap 2 (1200 to 1750)
+            { x: 1300, y: 310, width: 85, height: 18, type: "platform" },
+            { x: 1440, y: 230, width: 85, height: 18, type: "platform" },
+            { x: 1600, y: 300, width: 85, height: 18, type: "platform" },
 
             { x: 2300, y: 300, width: 60, height: 70, type: "exit" }
         ],
         papers: [
-            { x: 580, y: 140, width: 24, height: 24, asked: false, question: null },
-            { x: 1390, y: 190, width: 24, height: 24, asked: false, question: null }
+            { x: 600, y: 200, width: 24, height: 24, asked: false, question: null },
+            { x: 1440, y: 190, width: 24, height: 24, asked: false, question: null }
         ]
     },
 
@@ -180,17 +192,24 @@ const levels = [
             { x: 1000, y: 370, width: 250, height: 30, type: "ground" },
             { x: 1850, y: 370, width: 550, height: 30, type: "ground" },
 
-            { x: 260, y: 300, width: 80, height: 18, type: "platform" },
-            { x: 390, y: 230, width: 80, height: 18, type: "platform" },
-            { x: 530, y: 170, width: 80, height: 18, type: "platform" },
-            { x: 1320, y: 300, width: 80, height: 18, type: "platform" },
-            { x: 1450, y: 220, width: 80, height: 18, type: "platform" },
+            // Bridge Gap 1 (200 to 1000)
+            { x: 280, y: 310, width: 80, height: 18, type: "platform" },
+            { x: 420, y: 240, width: 80, height: 18, type: "platform" },
+            { x: 570, y: 190, width: 80, height: 18, type: "platform" },
+            { x: 720, y: 240, width: 80, height: 18, type: "platform" },
+            { x: 860, y: 310, width: 80, height: 18, type: "platform" },
+
+            // Bridge Gap 2 (1250 to 1850)
+            { x: 1350, y: 310, width: 80, height: 18, type: "platform" },
+            { x: 1490, y: 230, width: 80, height: 18, type: "platform" },
+            { x: 1640, y: 230, width: 80, height: 18, type: "platform" },
+            { x: 1760, y: 310, width: 80, height: 18, type: "platform" },
 
             { x: 2300, y: 300, width: 60, height: 70, type: "exit" }
         ],
         papers: [
-            { x: 530, y: 130, width: 24, height: 24, asked: false, question: null },
-            { x: 1450, y: 180, width: 24, height: 24, asked: false, question: null }
+            { x: 570, y: 150, width: 24, height: 24, asked: false, question: null },
+            { x: 1640, y: 190, width: 24, height: 24, asked: false, question: null }
         ]
     },
 
@@ -202,18 +221,26 @@ const levels = [
             { x: 1100, y: 370, width: 200, height: 30, type: "ground" },
             { x: 2100, y: 370, width: 300, height: 30, type: "ground" },
 
-            { x: 230, y: 300, width: 75, height: 18, type: "platform" },
-            { x: 360, y: 230, width: 75, height: 18, type: "platform" },
-            { x: 500, y: 160, width: 75, height: 18, type: "platform" },
-            { x: 1370, y: 300, width: 75, height: 18, type: "platform" },
-            { x: 1500, y: 220, width: 75, height: 18, type: "platform" },
-            { x: 1640, y: 160, width: 75, height: 18, type: "platform" },
+            // Bridge Gap 1 (180 to 1100)
+            { x: 250, y: 310, width: 75, height: 18, type: "platform" },
+            { x: 380, y: 240, width: 75, height: 18, type: "platform" },
+            { x: 520, y: 180, width: 75, height: 18, type: "platform" },
+            { x: 670, y: 180, width: 75, height: 18, type: "platform" },
+            { x: 810, y: 240, width: 75, height: 18, type: "platform" },
+            { x: 950, y: 310, width: 75, height: 18, type: "platform" },
+
+            // Bridge Gap 2 (1300 to 2100)
+            { x: 1390, y: 310, width: 75, height: 18, type: "platform" },
+            { x: 1520, y: 240, width: 75, height: 18, type: "platform" },
+            { x: 1660, y: 180, width: 75, height: 18, type: "platform" },
+            { x: 1810, y: 240, width: 75, height: 18, type: "platform" },
+            { x: 1950, y: 310, width: 75, height: 18, type: "platform" },
 
             { x: 2300, y: 300, width: 60, height: 70, type: "exit" }
         ],
         papers: [
-            { x: 500, y: 120, width: 24, height: 24, asked: false, question: null },
-            { x: 1640, y: 120, width: 24, height: 24, asked: false, question: null }
+            { x: 670, y: 140, width: 24, height: 24, asked: false, question: null },
+            { x: 1660, y: 140, width: 24, height: 24, asked: false, question: null }
         ]
     }
 ];
