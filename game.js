@@ -31,11 +31,11 @@ let keys = {};
 let currentLevel = 0;
 let quizActive = false;
 
-// QUESTION BANK SPECIFIC TO MR. HATZ'S WESTMONT CHEMISTRY SYLLABUS
+// QUESTION BANK SPECIFIC TO MR. BATZ'S WESTMONT CHEMISTRY SYLLABUS
 const masterQuestionBank = [
     {
         question: "Who is the teacher for this Chemistry course?",
-        options: ["Matthew Hatz", "John Westmont", "David Miller", "Robert Smith"],
+        options: ["Matthew Batz", "John Westmont", "David Miller", "Robert Smith"],
         answer: 0
     },
     {
@@ -45,7 +45,7 @@ const masterQuestionBank = [
     },
     {
         question: "What website URL is listed on the course syllabus?",
-        options: ["hatzchemistry.com", "hatzchemistry.weebly.com", "westmontchem.org", "hatzscience.net"],
+        options: ["batzchemistry.com", "batzchemistry.weebly.com", "westmontchem.org", "batzscience.net"],
         answer: 1
     },
     {
