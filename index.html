@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Quiz Platformer – Chemistry Edition</title>
+  <link rel="stylesheet" href="style.css">
+  <!-- Phaser 3 – CDN (tiny, no build step needed) -->
+  <script src="https://cdn.jsdelivr.net/npm/phaser@3.55.2/dist/phaser.min.js"></script>
+</head>
+
+<body>
+  <!-- Phaser will inject its canvas here -->
+  <div id="game-container"></div>
+
+  <!-- ---------------------------------------------------------
+       MODAL – appears when a question is triggered
+       ---------------------------------------------------------- -->
+  <div id="quiz-modal" class="hidden">
+    <div class="modal-box">
+      <h2>Quiz Time!</h2>
+      <p id="quiz-question"></p>
+
+      <ul id="quiz-answers"></ul>
+
+      <div class="modal-footer">
+        <button id="modal-close" class="secondary">Cancel</button>
+      </div>
+    </div>
+  </div>
+
+  <script src="game.js"></script>
+</body>
+</html>
