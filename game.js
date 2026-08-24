@@ -31,21 +31,30 @@ let keys = {};
 let currentLevel = 0;
 let quizActive = false;
 
-// EXPANDED MASTER QUESTION BANK
+// QUESTION BANK SPECIFIC TO MR. HATZ'S WESTMONT CHEMISTRY SYLLABUS
 const masterQuestionBank = [
-    // --- COURSE MATERIALS & SYLLABUS ---
     {
-        question: "Which of the following is a required material for Chemistry class?",
-        options: ["CUHSD Chromebook", "Phone Calculator", "Colored Pencils", "Graphing Tablet"],
+        question: "Who is the teacher for this Chemistry course?",
+        options: ["Matthew Hatz", "John Westmont", "David Miller", "Robert Smith"],
         answer: 0
     },
     {
-        question: "According to syllabus rules, what device is NOT allowed to be used as a calculator?",
+        question: "Which classroom is this Chemistry course held in?",
+        options: ["Rm. 12", "Rm. 45", "Rm. 63", "Rm. 101"],
+        answer: 2
+    },
+    {
+        question: "What website URL is listed on the course syllabus?",
+        options: ["hatzchemistry.com", "hatzchemistry.weebly.com", "westmontchem.org", "hatzscience.net"],
+        answer: 1
+    },
+    {
+        question: "According to the syllabus, what device is NOT allowed to be used as a calculator?",
         options: ["Scientific Calculator", "Phone Calculator", "CUHSD Chromebook", "Basic Calculator"],
         answer: 1
     },
     {
-        question: "Which textbook is used for this General Chemistry course?",
+        question: "Which textbook is used for this Chemistry course?",
         options: ["Conceptual Chemistry", "Experience Chemistry", "Modern Chemistry", "Central Science"],
         answer: 1
     },
@@ -59,81 +68,30 @@ const masterQuestionBank = [
         options: ["25%", "35%", "45%", "55%"],
         answer: 2
     },
-
-    // --- LAB SAFETY & NFPA 704 DIAMOND ---
     {
-        question: "On the NFPA 704 hazard diamond, what does the BLUE section represent?",
-        options: ["Health Hazard", "Flammability", "Instability/Reactivity", "Special Hazard"],
+        question: "What percentage weight is assigned to Homework and Academic Habits?",
+        options: ["5%", "10%", "15%", "20%"],
         answer: 0
     },
     {
-        question: "On the NFPA 704 hazard diamond, what does the RED section represent?",
-        options: ["Health Hazard", "Flammability", "Instability/Reactivity", "Special Hazard"],
+        question: "Which grade scale range defines an 'A' grade (Advanced understanding)?",
+        options: ["(89-80%)", "(100-90%)", "(79-70%)", "(69-60%)"],
         answer: 1
     },
     {
-        question: "On the NFPA 704 hazard diamond, what does the YELLOW section represent?",
-        options: ["Health Hazard", "Flammability", "Instability/Reactivity", "Special Hazard"],
+        question: "Are grades in this Chemistry course curved?",
+        options: ["Yes, on all tests", "Yes, at the end of the semester", "No, grades are not curved", "Only final exams are curved"],
         answer: 2
     },
     {
-        question: "On the NFPA 704 diamond, what rating number indicates extreme hazard?",
-        options: ["0", "1", "3", "4"],
+        question: "According to the syllabus, what is step #1 in the Chain of Communication?",
+        options: ["School Counselor", "Principal", "Assistant Principal", "Teacher"],
         answer: 3
     },
     {
-        question: "Where should you go immediately if chemical reagents splash on your body or clothes?",
-        options: ["Eyewash Station", "Safety Shower", "Fume Hood", "Fire Blanket"],
-        answer: 1
-    },
-    {
-        question: "What safety item must always be worn during laboratory investigations involving chemicals or heat?",
-        options: ["Sunglasses", "Safety Goggles", "Earplugs", "Dust Mask"],
-        answer: 1
-    },
-
-    // --- LAB EQUIPMENT ---
-    {
-        question: "Which piece of glass equipment is used for holding and mixing liquids coarsely (not precise volume measurement)?",
-        options: ["Beaker", "Graduated Cylinder", "Volumetric Pipette", "Burette"],
-        answer: 0
-    },
-    {
-        question: "Which laboratory equipment is specifically designed to measure liquid volumes with high precision?",
-        options: ["Beaker", "Graduated Cylinder", "Test Tube", "Watch Glass"],
-        answer: 1
-    },
-    {
-        question: "Which flask features a flat bottom and narrow conical neck, making it ideal for swirling liquids without splashing?",
-        options: ["Beaker", "Erlenmeyer Flask", "Volumetric Flask", "Florence Flask"],
-        answer: 1
-    },
-    {
-        question: "What lab equipment is used to support a crucible or dish while heating over a Bunsen burner?",
-        options: ["Clay Triangle", "Watch Glass", "Mortar and Pestle", "Test Tube Holder"],
-        answer: 0
-    },
-    {
-        question: "Which tool is best suited for grinding solid chemical crystals into a fine powder?",
-        options: ["Evaporating Dish", "Crucible", "Mortar and Pestle", "Watch Glass"],
-        answer: 2
-    },
-    {
-        question: "Which device is used in titrations to deliver variable, highly accurate amounts of liquid?",
-        options: ["Graduated Cylinder", "Burette", "Erlenmeyer Flask", "Beaker"],
-        answer: 1
-    },
-
-    // --- SYLLABUS UNITS & CONCEPTS ---
-    {
-        question: "Which syllabus topic focuses on calculating quantities of reactants and products in chemical reactions?",
+        question: "Which syllabus topic covers heat transfer and energy changes during chemical reactions?",
         options: ["Thermochemistry", "Stoichiometry", "Electrochemistry", "Nuclear Chemistry"],
-        answer: 1
-    },
-    {
-        question: "Which unit covers heat transfer, enthalpy, and energy changes during chemical processes?",
-        options: ["Gases", "Solutions", "Thermochemistry", "Bonding"],
-        answer: 2
+        answer: 0
     },
     {
         question: "Which syllabus unit covers the study of carbon-containing compounds?",
@@ -141,33 +99,13 @@ const masterQuestionBank = [
         answer: 0
     },
     {
-        question: "Which unit deals with radioactive decay, half-lives, fission, and fusion?",
-        options: ["Atomic Structure", "Nuclear Chemistry", "Electrochemistry", "Stoichiometry"],
-        answer: 1
-    },
-    {
-        question: "What type of chemical bond forms when electrons are transferred from a metal to a nonmetal?",
-        options: ["Covalent Bond", "Ionic Bond", "Metallic Bond", "Hydrogen Bond"],
-        answer: 1
-    },
-    {
-        question: "A solution with a pH value of 3 is classified as:",
-        options: ["Strongly Basic", "Weakly Basic", "Neutral", "Acidic"],
-        answer: 3
-    },
-    {
-        question: "Which subatomic particle carries a negative charge and orbits the nucleus?",
-        options: ["Proton", "Neutron", "Electron", "Photon"],
+        question: "Which course topic focuses on quantitative relationships and calculations in chemical reactions?",
+        options: ["Gases", "Solutions", "Stoichiometry", "Bonding"],
         answer: 2
-    },
-    {
-        question: "As you move from left to right across a period on the Periodic Table, atomic radius generally:",
-        options: ["Increases", "Decreases", "Stays the same", "Doubles"],
-        answer: 1
     }
 ];
 
-// 5 BALANCED LEVELS - 2 Papers Per Level & Grounded Exit Doors
+// 5 BALANCED LEVELS - 2400px Wide, 2 Papers Per Level, Grounded Exit Doors
 const levels = [
     // --- LEVEL 1 ---
     {
@@ -313,7 +251,7 @@ function getRandomQuestions(count) {
 
 function loadLevel(levelIndex) {
     if (levelIndex >= levels.length) {
-        alert("Congratulations! You completed all 5 chemistry levels!");
+        alert("Congratulations! You completed all 5 chemistry syllabus levels!");
         currentLevel = 0;
     } else {
         currentLevel = levelIndex;
