@@ -31,56 +31,88 @@ let keys = {};
 let currentLevel = 0;
 let quizActive = false;
 
-// MASTER QUESTION BANK
+// MASTER QUESTION BANK - Targeted to Syllabus, Materials, Safety & Lab Equipment
 const masterQuestionBank = [
+    // --- COURSE MATERIALS & SYLLABUS ---
     {
-        question: "On the NFPA 704 hazard diamond, what does the BLUE section represent?",
-        options: ["Health Hazard", "Flammability", "Instability/Reactivity", "Special Hazards"],
+        question: "Which of the following is an expected material for Chemistry class?",
+        options: ["CUIBSD Chromebook", "Phone Calculator", "Colored Pencils", "Graphing Tablet"],
         answer: 0
     },
     {
-        question: "On the NFPA 704 hazard diamond, what rating indicates extreme flammability?",
-        options: ["0", "1", "3", "4"],
-        answer: 3
-    },
-    {
-        question: "What safety equipment is used when working with noxious or toxic fumes?",
-        options: ["Eyewash Station", "Fume Hood", "Safety Shower", "Fire Blanket"],
+        question: "According to class rules, what device is NOT permitted to be used as a calculator?",
+        options: ["Scientific Calculator", "Phone Calculator", "CUIBSD Chromebook", "Basic Calculator"],
         answer: 1
     },
     {
-        question: "Which piece of lab glassware is designed for highly precise liquid measurements?",
-        options: ["Beaker", "Graduated Cylinder", "Test Tube", "Watch Glass"],
+        question: "Which textbook is used for this General Chemistry course?",
+        options: ["Conceptual Chemistry", "Experience Chemistry", "Modern Chemistry", "Chemistry Central Science"],
+        answer: 1
+    },
+
+    // --- LAB SAFETY & NFPA DIAMOND ---
+    {
+        question: "On the NFPA 704 hazard diamond, what does the RED section represent?",
+        options: ["Health Hazard", "Flammability", "Instability/Reactivity", "Special Hazard"],
         answer: 1
     },
     {
-        question: "Which glass container has a flat bottom and narrow neck, perfect for swirling liquids?",
-        options: ["Beaker", "Erlenmeyer Flask", "Graduated Cylinder", "Pipette"],
-        answer: 1
-    },
-    {
-        question: "Which subatomic particle has a negative charge and orbits the nucleus?",
-        options: ["Proton", "Neutron", "Electron", "Photon"],
+        question: "On the NFPA 704 hazard diamond, what does the YELLOW section represent?",
+        options: ["Health Hazard", "Flammability", "Instability/Reactivity", "Special Hazard"],
         answer: 2
     },
     {
-        question: "As you move left to right across a period on the Periodic Table, atomic radius:",
-        options: ["Increases", "Decreases", "Stays the same", "Doubles"],
+        question: "On the NFPA 704 hazard diamond, what does a rating of 0 indicate?",
+        options: ["Extreme Hazard", "Minimal Hazard", "Moderate Hazard", "High Hazard"],
         answer: 1
     },
     {
-        question: "What type of bond forms when electrons are transferred from a metal to a nonmetal?",
-        options: ["Covalent Bond", "Ionic Bond", "Metallic Bond", "Hydrogen Bond"],
+        question: "Where should you go immediately if chemical reagents spill on your clothing or body?",
+        options: ["Eyewash Station", "Safety Shower", "Fume Hood", "Fire Blanket"],
+        answer: 1
+    },
+
+    // --- LAB EQUIPMENT ---
+    {
+        question: "Which piece of glass equipment is used for holding, heating, and mixing chemicals coarsely (not precise measurement)?",
+        options: ["Beaker", "Graduated Cylinder", "Volumetric Pipette", "Burette"],
+        answer: 0
+    },
+    {
+        question: "What lab apparatus is used to support a crucible or porcelain dish over a Bunsen burner?",
+        options: ["Clay Triangle", "Watch Glass", "Mortar and Pestle", "Test Tube Holder"],
+        answer: 0
+    },
+    {
+        question: "Which tool is best suited for grinding solid chemical crystals into a fine powder?",
+        options: ["Evaporating Dish", "Crucible", "Mortar and Pestle", "Watch Glass"],
+        answer: 2
+    },
+    {
+        question: "Which device is used to precisely measure liquid volume by delivering variable quantities during titration?",
+        options: ["Graduated Cylinder", "Burette", "Erlenmeyer Flask", "Beaker"],
+        answer: 1
+    },
+
+    // --- SYLLABUS UNITS & TOPICS ---
+    {
+        question: "Which syllabus topic focuses on the calculations of reactants and products in chemical reactions?",
+        options: ["Thermochemistry", "Stoichiometry", "Electrochemistry", "Nuclear Chemistry"],
         answer: 1
     },
     {
-        question: "A solution with a pH value of 3 is considered:",
-        options: ["Strongly Basic", "Weakly Basic", "Neutral", "Acidic"],
-        answer: 3
+        question: "Which topic covers heat changes and heat transfer during chemical processes?",
+        options: ["Gases", "Solutions", "Thermochemistry", "Bonding"],
+        answer: 2
     },
     {
-        question: "Which state of matter has a definite volume but no definite shape?",
-        options: ["Solid", "Liquid", "Gas", "Plasma"],
+        question: "Which syllabus unit covers the study of carbon-containing compounds?",
+        options: ["Organic Chemistry", "Nuclear Chemistry", "Electrochemistry", "Periodic Trends"],
+        answer: 0
+    },
+    {
+        question: "Which topic deals with radioactive decay, fission, and fusion?",
+        options: ["Atomic Structure", "Nuclear Chemistry", "Electrochemistry", "Stoichiometry"],
         answer: 1
     }
 ];
