@@ -1,13 +1,13 @@
-// Game canvas setup
+// Canvas Setup
 const canvas = document.getElementById("gameCanvas");
 const ctx = canvas.getContext("2d");
 
-// Player properties
+// Player Properties
 let player = {
     x: 50,
     y: 300,
-    width: 30,
-    height: 30,
+    width: 25,
+    height: 25,
     dx: 0,
     dy: 0,
     speed: 4,
@@ -16,35 +16,77 @@ let player = {
     grounded: false
 };
 
-// Controls
+// Keyboard Controls
 let keys = {};
 
-// Platforms & Question Blocks
+// Game Platforms & Quiz Blocks
 let platforms = [
     { x: 0, y: 370, width: 800, height: 30, type: "ground" },
-    { x: 150, y: 280, width: 100, height: 20, type: "platform" },
-    { x: 320, y: 220, width: 100, height: 20, type: "quiz", asked: false },
-    { x: 500, y: 160, width: 100, height: 20, type: "platform" }
+    { x: 100, y: 290, width: 90, height: 18, type: "quiz", asked: false },
+    { x: 230, y: 230, width: 90, height: 18, type: "platform" },
+    { x: 350, y: 170, width: 90, height: 18, type: "quiz", asked: false },
+    { x: 490, y: 220, width: 90, height: 18, type: "quiz", asked: false },
+    { x: 630, y: 160, width: 90, height: 18, type: "quiz", asked: false }
 ];
 
-// Quiz state
+// Quiz State & Question Pool
 let currentQuestionIndex = 0;
 let quizActive = false;
 
 const questions = [
+    // --- NFPA & SAFETY ---
     {
-        question: "What is the atomic symbol for Gold?",
-        options: ["Au", "Ag", "Fe", "Hg"],
+        question: "On the NFPA 704 hazard diamond, what does the BLUE section represent?",
+        options: ["Health Hazard", "Flammability", "Instability/Reactivity", "Special Hazards"],
         answer: 0
     },
     {
-        question: "What is the pH of pure water?",
-        options: ["5", "7", "9", "12"],
+        question: "On the NFPA 704 hazard diamond, what rating indicates extreme flammability?",
+        options: ["0", "1", "3", "4"],
+        answer: 3
+    },
+    {
+        question: "What safety equipment is used when working with noxious or toxic fumes?",
+        options: ["Eyewash Station", "Fume Hood", "Safety Shower", "Fire Blanket"],
         answer: 1
+    },
+
+    // --- EQUIPMENT ---
+    {
+        question: "Which piece of lab glassware is designed for highly precise liquid measurements?",
+        options: ["Beaker", "Graduated Cylinder", "Test Tube", "Watch Glass"],
+        answer: 1
+    },
+    {
+        question: "Which glass container has a flat bottom and narrow neck, perfect for swirling liquids?",
+        options: ["Beaker", "Erlenmeyer Flask", "Graduated Cylinder", "Pipette"],
+        answer: 1
+    },
+
+    // --- SYLLABUS CONCEPTS ---
+    {
+        question: "Which subatomic particle has a negative charge and orbits the nucleus?",
+        options: ["Proton", "Neutron", "Electron", "Photon"],
+        answer: 2
+    },
+    {
+        question: "As you move left to right across a period on the Periodic Table, atomic radius:",
+        options: ["Increases", "Decreases", "Stays the same", "Doubles"],
+        answer: 1
+    },
+    {
+        question: "What type of bond forms when electrons are transferred from a metal to a nonmetal?",
+        options: ["Covalent Bond", "Ionic Bond", "Metallic Bond", "Hydrogen Bond"],
+        answer: 1
+    },
+    {
+        question: "A solution with a pH value of 3 is considered:",
+        options: ["Strongly Basic", "Weakly Basic", "Neutral", "Acidic"],
+        answer: 3
     }
 ];
 
-// Event Listeners for Controls
+// Key Listeners
 window.addEventListener("keydown", (e) => keys[e.code] = true);
 window.addEventListener("keyup", (e) => keys[e.code] = false);
 
@@ -54,37 +96,31 @@ const questionText = document.getElementById("question-text");
 const optionsContainer = document.getElementById("options-container");
 const cancelBtn = document.getElementById("cancel-btn");
 
-// Handle Cancel Button Click
 if (cancelBtn) {
     cancelBtn.addEventListener("click", closeQuiz);
 }
 
 function init() {
-    // Game setup without triggering modals on load
     requestAnimationFrame(gameLoop);
 }
 
 function update() {
-    if (quizActive) return; // Pause movement during quiz
+    if (quizActive) return; // Pause movement during active quiz
 
-    // Left / Right movement
     if (keys["ArrowRight"] || keys["KeyD"]) player.dx = player.speed;
     else if (keys["ArrowLeft"] || keys["KeyA"]) player.dx = -player.speed;
     else player.dx = 0;
 
-    // Jump
     if ((keys["ArrowUp"] || keys["KeyW"] || keys["Space"]) && player.grounded) {
         player.dy = player.jumpPower;
         player.grounded = false;
     }
 
-    // Apply gravity
     player.dy += player.gravity;
-
     player.x += player.dx;
     player.y += player.dy;
 
-    // Keep inside canvas bounds
+    // Keep player in bounds
     if (player.x < 0) player.x = 0;
     if (player.x + player.width > canvas.width) player.x = canvas.width - player.width;
 
@@ -101,7 +137,6 @@ function update() {
             player.dy = 0;
             player.y = p.y - player.height;
 
-            // Trigger quiz if stepping on an unasked quiz block
             if (p.type === "quiz" && !p.asked) {
                 p.asked = true;
                 triggerQuiz();
@@ -116,7 +151,9 @@ function render() {
     // Draw Platforms
     platforms.forEach(p => {
         if (p.type === "quiz") {
-            ctx.fillStyle = p.asked ? "#555" : "#f1c40f";
+            ctx.fillStyle = p.asked ? "#555555" : "#f1c40f";
+        } else if (p.type === "ground") {
+            ctx.fillStyle = "#27ae60";
         } else {
             ctx.fillStyle = "#2ecc71";
         }
@@ -167,5 +204,4 @@ function closeQuiz() {
     quizActive = false;
 }
 
-// Start game when page loads
 window.onload = init;
