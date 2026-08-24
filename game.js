@@ -36,7 +36,7 @@ const masterQuestionBank = [
     // --- COURSE MATERIALS & SYLLABUS ---
     {
         question: "Which of the following is an expected material for Chemistry class?",
-        options: ["CUIBSD Chromebook", "Phone Calculator", "Colored Pencils", "Graphing Tablet"],
+        options: ["CUHSD Chromebook", "Phone Calculator", "Colored Pencils", "Graphing Tablet"],
         answer: 0
     },
     {
